@@ -1,13 +1,12 @@
-import { StackList } from "./stackList/StackList.js";
-import { Stack } from "./stacks.js";
+import { Stack } from "./Stack";
 
 
 // Conversor de Inteiro para Binário.
 
 class App {
-    main() {
+    public main() {
         const stack = new Stack();
-    
+
         let number = 172;
         let rest = 0;
 

@@ -1,4 +1,4 @@
-import { Queue } from "./queue.js";
+import { Queue } from "./Queue.js";
 
 class App {
     main() {
@@ -13,7 +13,7 @@ class App {
 
         while (!queue.isEmpty()) {
             console.log(queue.remove());
-            console.log(queue.values);
+            console.log(queue.getValues());
         }
 
     }
