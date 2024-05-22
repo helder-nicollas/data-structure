@@ -50,11 +50,73 @@ export class Collection {
             if (
                 this.values[tinyPosition] < this.values[initialTinyPosition]
             ) {
-               auxValue = this.values[tinyPosition];
-               this.values[tinyPosition] = this.values[initialTinyPosition];
-               this.values[initialTinyPosition] = auxValue; 
+                auxValue = this.values[tinyPosition];
+                this.values[tinyPosition] = this.values[initialTinyPosition];
+                this.values[initialTinyPosition] = auxValue;
             }
         }
+    }
+
+    public insertionSort() {
+        let value = 0, iteration = 0, counter = 0;
+
+
+        for (iteration = 1; iteration < this.values.length; iteration++) {
+            value = this.values[iteration];
+            for (
+                counter = iteration - 1;
+                (counter >= 0) && (this.values[counter] > value);
+                counter--
+            ) {
+                this.values[counter + 1] = this.values[counter];
+            }
+
+            //counter is -1 here
+            this.values[counter + 1] = value;
+        }
+    }
+
+    public partition(start: number, end: number) {
+        let
+            ref = 0,
+            up = 0,
+            down = 0,
+            auxValue = 0;
+
+
+        ref = this.values[start];
+        up = end;
+        down = start;
+
+
+        while (down < up) {
+            while (this.values[down] <= ref && down < end) down++;
+
+            while (this.values[up] > ref) up--;
+
+
+            if (down < up) {
+                auxValue = this.values[down];
+                this.values[down] = this.values[up];
+                this.values[up] = auxValue;
+            }
+        }
+        this.values[start] = this.values[up];
+        this.values[up] = ref;
+        return up;
+    }
+
+    public quickSort(start: number, end: number) {
+        let ref = 0;
+        if (start > end) return;
+
+        ref = this.partition(start, end);
+        this.quickSort(start, ref - 1);
+        this.quickSort(ref + 1, end);
+    }
+
+    public getValues() {
+        return this.values;
     }
 
     public print() {
@@ -65,6 +127,7 @@ export class Collection {
 const newCollection = new Collection();
 
 
-newCollection.selectionSort();
+const values = newCollection.getValues();
+newCollection.quickSort(0, values.length -1);
 newCollection.print();
 
