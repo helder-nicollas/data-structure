@@ -77,11 +77,10 @@ export class Collection {
         up = end;
         down = start;
 
+
         while (down < up) {
             while (array[down] <= ref && down < end) down++;
-
             while (array[up] > ref) up--;
-
 
             if (down < up) {
                 auxValue = array[down];
@@ -96,8 +95,7 @@ export class Collection {
 
     public static quickSort(start: number, end: number, array: number[]) {
         let ref = 0;
-        if (start > end) return;
-
+        if (start >= end) return;
         ref = this.partition(start, end, array);
         this.quickSort(start, ref - 1, array);
         this.quickSort(ref + 1, end, array);
@@ -107,5 +105,5 @@ export class Collection {
 
 
 const values = [10, 5, 4, 6];
-Collection.selectionSort(values);
+Collection.quickSort(0, values.length - 1, values);
 console.log(values);
