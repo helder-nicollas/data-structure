@@ -1,7 +1,6 @@
 class Collection {
     private values = [10, 15, 17, 20, 32, 37, 39, 49, 58, 67, 98];
 
-
     public linearSearch(value: number) {
         for (let counter = 0; counter < this.values.length; counter++) {
             if (value == this.values[counter]) {

@@ -1,133 +1,111 @@
 export class Collection {
-    private values = [25, 57, 48, 37, 12, 92, 33];
-
-    public sort() {
-        let counter = 0;
-
-        for (let control01 = 0; control01 < this.values.length; control01++) {
-            for (let control02 = 0; control02 < this.values.length; control02++) {
-                if (this.values[control01] < this.values[control02]) {
-                    let auxControl = this.values[control01];
-                    this.values[control01] = this.values[control02];
-                    this.values[control02] = auxControl;
-                }
-            }
-        }
-    }
-
-
-    public bubbleSort() {
+    public static bubbleSort(array: number[]) {
         let iteration = 0;
         let position = 0;
         let auxValue = 0;
 
-        for (iteration = 0; iteration < this.values.length - 1; iteration++) {
-            for (position = 0; position < this.values.length - iteration - 1; position++) {
-                if (this.values[position] > this.values[position + 1]) {
-                    auxValue = this.values[position];
-                    this.values[position] = this.values[position + 1];
-                    this.values[position + 1] = auxValue;
+        for (iteration = 0; iteration < array.length - 1; iteration++) {
+            for (position = 0; position < array.length - iteration - 1; position++) {
+                if (array[position] > array[position + 1]) {
+                    auxValue = array[position];
+                    array[position] = array[position + 1];
+                    array[position + 1] = auxValue;
                 }
             }
         }
     }
 
-    public selectionSort() {
+    public static selectionSort(array: number[]) {
         let iteration = 0,
             tinyPosition = 0,
             initialTinyPosition = 0,
             counter = 0,
             auxValue = 0;
 
-        for (iteration = 0; iteration < this.values.length; iteration++) {
+        // [10, 5, 4, 6]
+
+        // [4, 5, 10, 6]
+        // [4, 5, 10, 6]
+        // [4, 5, 6, 10]
+
+        for (iteration = 0; iteration < array.length; iteration++) {
             initialTinyPosition = iteration;
-            tinyPosition = iteration + 1;
-            for (counter = initialTinyPosition + 1; counter < this.values.length; counter++) {
-                if (this.values[counter] < this.values[tinyPosition]) {
+            tinyPosition = initialTinyPosition + 1;
+            for (counter = tinyPosition; counter < array.length; counter++) {
+                if (array[counter] < array[tinyPosition]) {
                     tinyPosition = counter;
                 }
             }
             if (
-                this.values[tinyPosition] < this.values[initialTinyPosition]
+                array[tinyPosition] < array[initialTinyPosition]
             ) {
-                auxValue = this.values[tinyPosition];
-                this.values[tinyPosition] = this.values[initialTinyPosition];
-                this.values[initialTinyPosition] = auxValue;
+                auxValue = array[tinyPosition];
+                array[tinyPosition] = array[initialTinyPosition];
+                array[initialTinyPosition] = auxValue;
             }
+            console.log(array);
         }
     }
 
-    public insertionSort() {
+    public static insertionSort(array: number[]) {
         let value = 0, iteration = 0, counter = 0;
 
 
-        for (iteration = 1; iteration < this.values.length; iteration++) {
-            value = this.values[iteration];
+        for (iteration = 1; iteration < array.length; iteration++) {
+            value = array[iteration];
             for (
                 counter = iteration - 1;
-                (counter >= 0) && (this.values[counter] > value);
+                (counter >= 0) && (array[counter] > value);
                 counter--
             ) {
-                this.values[counter + 1] = this.values[counter];
+                array[counter + 1] = array[counter];
             }
 
             //counter is -1 here
-            this.values[counter + 1] = value;
+            array[counter + 1] = value;
         }
     }
 
-    public partition(start: number, end: number) {
+    private static partition(start: number, end: number, array: number[]) {
         let
             ref = 0,
             up = 0,
             down = 0,
             auxValue = 0;
 
-
-        ref = this.values[start];
+        ref = array[start];
         up = end;
         down = start;
 
-
         while (down < up) {
-            while (this.values[down] <= ref && down < end) down++;
+            while (array[down] <= ref && down < end) down++;
 
-            while (this.values[up] > ref) up--;
+            while (array[up] > ref) up--;
 
 
             if (down < up) {
-                auxValue = this.values[down];
-                this.values[down] = this.values[up];
-                this.values[up] = auxValue;
+                auxValue = array[down];
+                array[down] = array[up];
+                array[up] = auxValue;
             }
         }
-        this.values[start] = this.values[up];
-        this.values[up] = ref;
+        array[start] = array[up];
+        array[up] = ref;
         return up;
     }
 
-    public quickSort(start: number, end: number) {
+    public static quickSort(start: number, end: number, array: number[]) {
         let ref = 0;
         if (start > end) return;
 
-        ref = this.partition(start, end);
-        this.quickSort(start, ref - 1);
-        this.quickSort(ref + 1, end);
-    }
-
-    public getValues() {
-        return this.values;
-    }
-
-    public print() {
-        console.log(this.values);
+        ref = this.partition(start, end, array);
+        this.quickSort(start, ref - 1, array);
+        this.quickSort(ref + 1, end, array);
     }
 }
 
-const newCollection = new Collection();
 
 
-const values = newCollection.getValues();
-newCollection.quickSort(0, values.length -1);
-newCollection.print();
-
+const values = [10, 5, 4, 6];
+Collection.selectionSort(values);
+console.log(values);
