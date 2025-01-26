@@ -28,3 +28,12 @@ export class Sell {
     }
 
 }
+
+
+
+
+
+
+const myNumber = 0.1 + 0.3;
+
+console.log(myNumber);
