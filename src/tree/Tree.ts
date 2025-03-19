@@ -60,6 +60,54 @@ export class Tree {
     }
 
 
+    public remove(element: Element) {
+        if (this.value!.getValue() === element.getValue()) {
+            if (this.left == null && this.right == null)
+                return null;
+
+            if (this.left && this.right == null)
+                return this.left;
+
+
+            if (this.right && this.left == null)
+                return this.right;
+
+
+            let auxNode = this.left;
+
+            while (auxNode?.right != null) {
+                auxNode = auxNode.right;
+            }
+
+            this.value = auxNode!.getValue();
+            auxNode?.setValue(element);
+            this.left = this.left!.remove(element);
+        } else {
+            
+            if (element.getValue() < this.value!.getValue())
+                this.left = this.left!.remove(element);
+
+            else if (element.getValue() > this.value!.getValue())
+                this.right = this.right!.remove(element);
+
+        }
+        return this;
+    }
+
+
+    public printInOrder() {
+        if (!this.isEmpty()) {
+            if (this.left !== null) {
+                this.left.printInOrder();
+            }
+            console.log(this.value?.getValue(), ' ');
+            if (this.right !== null) {
+                this.right.printInOrder();
+            }
+        }
+    }
+
+
     public setValue(value: Element) {
         this.value = value;
     }
