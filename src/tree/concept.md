@@ -26,3 +26,56 @@ Existem quatro maneiras de se percorrer uma árvore binária:
 - Pós-ordem: Percorre todos os elementos da direita, depois da esquerda e por último a raíz
 - In-ordem invertida: testing...
 
+
+### Remoção de Elementos
+Existem 4 que devem ser analisados ao excluir um elemento de uma árvore. São eles:
+1. Se o nó a ser excluído é um **nó folha**
+2. Se o nó a ser excluído tem filhos à esquerda
+3. Se o nó a ser excluído tem filhos à direita
+4. Se o nó a ser excluído tem filhos dos dois lados (Esse é o caso mais complexo. Para fechar este caso, é preciso adotar uma estratégia de troca: Trocar o elemento a ser excluído com o maior dentre os menores ou trocar com o menor dentre os maiores).
+
+Ao trabalhar com árvores, tudo não de delegação de responsabilidades (Linked List).
+
+Exemplo de código do método **remove**:
+
+```js
+    public remove(element: Element) {
+        if (this.value!.getValue() === element.getValue()) {
+            // Caso 1 - Nó folha
+            if (this.left == null && this.right == null)
+                return null;
+
+            // Caso 2 - Nó com filhos à esquerda
+            if (this.left && this.right == null)
+                return this.left;
+
+            // Caso 3 - Nó com filhos à direita
+            if (this.right && this.left == null)
+                return this.right;
+
+
+            // Caso 4 -  Nó com filhos dos dois lados
+            let auxNode = this.left;
+
+            while (auxNode?.right != null) {
+                auxNode = auxNode.right;
+            }
+
+            this.value = auxNode!.getValue();
+            auxNode?.setValue(element);
+            this.left = this.left!.remove(element);
+        } else {
+            
+            if (element.getValue() < this.value!.getValue())
+                this.left = this.left!.remove(element);
+
+            else if (element.getValue() > this.value!.getValue())
+                this.right = this.right!.remove(element);
+
+        }
+        return this;
+    }
+```
+
+![alt text](example.png)
+
