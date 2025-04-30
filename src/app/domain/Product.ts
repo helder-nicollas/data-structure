@@ -1,24 +1,16 @@
 export class Product {
-    private productId: number;
     private name: string;
     private unitValue: number;
     private stockQuantity: number;
 
     public constructor(
-        productId: number,
         name: string, 
         unitValue: number
     ) {
-        this.productId = productId;
         this.name = name;
         this.unitValue = unitValue;
         this.stockQuantity = 0;
     }
-
-    public getProductId() {
-        return this.productId;
-    }    
-
     public getName() {
         return this.name;
     }

@@ -1,0 +1,64 @@
+import { Product } from "../../../domain/Product";
+import { ProductBucket } from "./product-bucket";
+import { ProductNode } from "./product-node";
+
+export class ProductMap {
+    private products: (ProductBucket | null)[] = [];
+    private capacity: number;
+    private dataQuantity: number;
+
+
+    public constructor(capacity: number) {
+        this.products = new Array<ProductBucket | null>(capacity).fill(null);
+        this.capacity = capacity;
+        this.dataQuantity = 0;
+    }
+
+
+    public put(product: Product) {
+        const hashCode = this.hash(product.getName());
+        const newProductNode = new ProductNode(product, product.getName());
+        const isEmptySlot = this.products[hashCode] == null;
+
+        if (isEmptySlot) {
+            this.products[hashCode] = new ProductBucket(newProductNode);
+            return;
+        }
+
+        this.products[hashCode]!.insert(newProductNode);
+    }
+
+
+    public getAll() {
+        let products: Product[] = [];
+
+        for (const bucket of this.products) {
+            if (bucket) {
+                products = [...products, ...bucket.getAllValues()];
+            } 
+        }
+
+        return products;
+    }
+
+    public get(key: string) {
+        const position = this.hash(key);
+        return this.products[position]?.getNodeValue(key);
+    }
+
+    private hash(key: string) {
+        let hash = 0;
+
+        for (const char of key) {
+            hash = (hash + char.charCodeAt(0)) % this.capacity;
+        }
+
+        return hash;
+    }
+
+    public delete(key: string) {
+        const position = this.hash(key);
+
+        this.products[position]?.delete(key);
+    }
+}

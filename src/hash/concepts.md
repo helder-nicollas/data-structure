@@ -26,4 +26,10 @@ Com essa implementação, o elemento <code>data02</code> estaria substituindo o 
 
 ## Alternativas para resolver o problema
 
-Uma boa alternativa para resolver o problema de colisão de posições é fazer uma função hash mais eficiente. Porém, mesmo com uma função hash muito eficiente, ainda existe uma possibilidade de um elemento com chave diferente gerar o mesmo hash code de um outro elemento. Para resolver esse problema, pode-se utilizar listas encadeadas, onde uma posição poderá possuir vários elementos, eliminando assim a inconsistência de informações no **Hash Map**
+Uma boa alternativa para resolver o problema de colisão de posições é fazer uma função hash mais eficiente. Porém, mesmo com uma função hash muito eficiente, ainda existe uma possibilidade de um elemento com chave diferente gerar o mesmo hash code de um outro elemento. Para resolver esse problema, pode-se utilizar listas encadeadas (Buckets), onde uma posição poderá possuir vários elementos, eliminando assim a inconsistência de informações no **Hash Map**
+
+
+## Casos de uso para utilizar hash maps
+- Busca rápida por chave
+- Contagem de frequência
+- Relacionamentos complexos
