@@ -67,7 +67,7 @@ export class App {
 }
 
 
-const database = new ProductMap(10);
+const database = new ProductMap(1);
 const app = new App(database);
 
 app.start();

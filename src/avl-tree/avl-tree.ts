@@ -9,16 +9,11 @@ export class AvlTree {
         this.value = value;
         this.left = null;
         this.right = null;
-        // console.log('This tree was created with element ' + value.getValue());
     }
-
-
 
     public isEmpty() {
         return (this.value == null);
     }
-
-
 
     public search(searchedValue: number): boolean {
         if (this.isEmpty()) return false;

@@ -5,13 +5,14 @@ import { ProductNode } from "./product-node";
 export class ProductMap {
     private products: (ProductBucket | null)[] = [];
     private capacity: number;
-    private dataQuantity: number;
+    private size: number;
+    private loadFactor = 0.75;
 
 
     public constructor(capacity: number) {
         this.products = new Array<ProductBucket | null>(capacity).fill(null);
         this.capacity = capacity;
-        this.dataQuantity = 0;
+        this.size = 0;
     }
 
 
@@ -20,14 +21,33 @@ export class ProductMap {
         const newProductNode = new ProductNode(product, product.getName());
         const isEmptySlot = this.products[hashCode] == null;
 
-        if (isEmptySlot) {
+        if (isEmptySlot)
             this.products[hashCode] = new ProductBucket(newProductNode);
-            return;
-        }
+        else
+            this.products[hashCode]!.insert(newProductNode);
 
-        this.products[hashCode]!.insert(newProductNode);
+        this.size++;
+
+        if ((this.size / this.capacity) > this.loadFactor)
+            this.resize();
     }
 
+    private resize() {
+        const oldBuckets = this.products;
+        this.capacity *= 2;
+        this.size = 0;
+        this.products = new Array(this.capacity).fill(null);
+
+
+        for (const bucket of oldBuckets) {
+            if (bucket) {
+                const products = bucket?.getAllValues();
+                for (const product of products) {
+                    this.put(product);
+                }
+            }
+        }
+    }
 
     public getAll() {
         let products: Product[] = [];
@@ -35,7 +55,7 @@ export class ProductMap {
         for (const bucket of this.products) {
             if (bucket) {
                 products = [...products, ...bucket.getAllValues()];
-            } 
+            }
         }
 
         return products;

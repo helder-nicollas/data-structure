@@ -34,7 +34,7 @@ Existem 4 que devem ser analisados ao excluir um elemento de uma árvore. São e
 3. Se o nó a ser excluído tem filhos à direita
 4. Se o nó a ser excluído tem filhos dos dois lados (Esse é o caso mais complexo. Para fechar este caso, é preciso adotar uma estratégia de troca: Trocar o elemento a ser excluído com o maior dentre os menores ou trocar com o menor dentre os maiores).
 
-Ao trabalhar com árvores, tudo não de delegação de responsabilidades (Linked List).
+Ao trabalhar com árvores, tudo não passa de delegação de responsabilidades (Linked List).
 
 Exemplo de código do método **remove**:
 
