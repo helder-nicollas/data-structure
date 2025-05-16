@@ -1,6 +1,5 @@
 import promptSync from 'prompt-sync';
-import { Database } from './database/database';
-import { ProductMap } from './database/maps/product/product-map';
+import { ProductMap } from './database/tables/product/product-map';
 import { Product } from './domain/Product';
 const prompt = promptSync({ sigint: false });
 
